@@ -1,54 +1,41 @@
-# SQL Portfolio Project — Sales Order Analytics View (AdventureWorks)
+# AdventureWorks SQL Analytics Project
 
 ## Overview
-This project creates a reusable, **order-level analytics dataset** in Microsoft SQL Server using the AdventureWorks sample database.  
-The core deliverable is a view (`analytics.vw_SalesOrderAnalytics`) that standardizes customer identity (Person vs Store), adds business-friendly labels (order size), and includes window-function rankings for “Top-N per customer” analysis.
+Portfolio-ready SQL analytics project built on the AdventureWorks2022 sample database.
 
-**Grain:** 1 row = 1 Sales Order (`SalesOrderID`)
+This project demonstrates:
+- Clean analytical view design
+- Window functions for ranking
+- Customer segmentation
+- Reusable SQL for reporting and BI tools
 
----
+## Core Asset
+**analytics.vw_SalesOrderAnalytics**
 
-## Business Questions This Supports
-- **Sales trends** by year/month (revenue + order counts)
-- **Order segmentation**: Small / Medium / Large orders
-- **Top orders per customer** (by value)
-- **Customer activity analysis** and reporting-ready datasets (filter by date range safely)
+Grain: one row per SalesOrderID
 
----
+Includes:
+- Customer resolution (Person / Store)
+- Order size classification
+- Ranking within customer and year
+- Date attributes for trending
 
-## Tech / Skills Demonstrated
-- `JOIN` vs `LEFT JOIN` (preserving rows and handling missing relationships)
-- Customer identity resolution using `COALESCE` (Person + Store)
-- Business rules using `CASE WHEN`
-- Window functions:
-  - `ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ...)`
-- Safe date filtering using **range filters** (index-friendly)
-- Data quality validation checks (grain & key integrity)
+## Example Business Questions Answered
+- Which customers place the highest-value orders?
+- Who are VIP customers by lifetime value?
+- Monthly sales trends
+- Top N orders per customer
+- Data quality validation checks
 
----
+## Files
+- `sql/create_view.sql` – deployable analytics view
+- `sql/example_queries.sql` – business queries & QA checks
 
-## Requirements
-- Microsoft SQL Server (Express is fine)
-- SQL Server Management Studio (SSMS)
-- AdventureWorks OLTP database (e.g., AdventureWorks2022)
+## Tech Stack
+- SQL Server 2022
+- AdventureWorks2022 sample database
 
----
+## Notes
+All SQL is production-safe, readable, and reusable for BI tools.
 
-## Installation / Setup
-1. Restore AdventureWorks (e.g., `AdventureWorks2022`) in SQL Server.
-2. Open SSMS and connect to your SQL Server instance.
-3. Run the script in the following order:
-   - Create schema `analytics`
-   - Create or alter the view `analytics.vw_SalesOrderAnalytics`
-   - Run QA checks and sample queries
-
----
-
-## 1) Create Schema (optional but recommended)
-```sql
-IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'analytics')
-BEGIN
-    EXEC('CREATE SCHEMA analytics AUTHORIZATION dbo;');
-END
-GO
 
