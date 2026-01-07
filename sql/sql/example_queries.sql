@@ -42,3 +42,19 @@ SELECT
 FROM CustomerSpend
 ORDER BY TotalSpent DESC;
 --Customer Segmentation (VIP / Regular / Low)
+
+-- Check grain
+SELECT COUNT(*) AS Rows, COUNT(DISTINCT SalesOrderID) AS DistinctOrders
+FROM analytics.vw_SalesOrderAnalytics;
+
+-- Check missing customer names
+SELECT *
+FROM analytics.vw_SalesOrderAnalytics
+WHERE CustomerName = 'Unknown';
+
+-- Check duplicates
+SELECT SalesOrderID, COUNT(*)
+FROM analytics.vw_SalesOrderAnalytics
+GROUP BY SalesOrderID
+HAVING COUNT(*) > 1;
+
