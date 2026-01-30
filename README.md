@@ -1,4 +1,4 @@
-# AdventureWorks SQL Analytics Project
+# SQL Analytics Project
 
 ## Overview
 Portfolio-ready SQL analytics project built on the AdventureWorks2022 sample database.
